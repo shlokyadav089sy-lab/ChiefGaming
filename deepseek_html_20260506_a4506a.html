@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>YaarWin | Chief Gaming – Profit Predictions</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Space Grotesk', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 10% 20%, #0B0E17, #03050A);
+      color: #F0F2FA;
+      line-height: 1.45;
+      scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1A1E2A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #F5B342;
+      border-radius: 12px;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ========== HEADER / NAVBAR (logo + actions) ========== */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(245, 179, 66, 0.2);
+      margin-bottom: 20px;
+    }
+
+    /* LOGO container — flexible for any logo size */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      max-width: 280px;
+      min-width: 140px;
+    }
+    .navbar-logo {
+      max-height: 70px;        /* limits height, keeps proportion */
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;     /* ensures no distortion */
+      display: block;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+      transition: transform 0.2s;
+    }
+    /* In case logo is very tall, max-height prevents overflow */
+    .navbar-logo:hover {
+      transform: scale(1.02);
+    }
+
+    /* Right side buttons */
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn-nav {
+      padding: 8px 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 60px;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-login-nav {
+      background: transparent;
+      border: 1.5px solid #F5B342;
+      color: #F5B342;
+    }
+    .btn-login-nav:hover {
+      background: rgba(245, 179, 66, 0.1);
+      transform: translateY(-2px);
+    }
+    .btn-reg-nav {
+      background: linear-gradient(135deg, #F5B042, #E27C1E);
+      color: #0B0E17;
+      box-shadow: 0 4px 12px rgba(245,176,66,0.3);
+    }
+    .btn-reg-nav:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+    }
+
+    /* Responsive navbar: stack on small screens */
+    @media (max-width: 650px) {
+      .navbar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .logo-container {
+        justify-content: center;
+        max-width: 220px;
+      }
+      .nav-actions {
+        justify-content: center;
+        width: 100%;
+      }
+      .navbar-logo {
+        max-height: 60px;
+      }
+    }
+
+    /* ========== HERO SECTION ========== */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.2rem;
+      justify-content: space-between;
+      align-items: center;
+      margin: 20px 0 50px;
+    }
+    .hero-content {
+      flex: 1.2;
+      min-width: 260px;
+    }
+    .hero-badge {
+      background: rgba(245, 179, 66, 0.18);
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #F5B342;
+      margin-bottom: 20px;
+      backdrop-filter: blur(2px);
+    }
+    .hero-content h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1.2;
+      background: linear-gradient(to right, #FFFFFF, #F5B342, #FFCF6E);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 20px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 28px;
+      margin: 24px 0 20px;
+      flex-wrap: wrap;
+    }
+    .stat {
+      display: flex;
+      flex-direction: column;
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #F5B342;
+      line-height: 1.2;
+    }
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 20px 0 15px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #F5B042, #E27C1E);
+      color: #0B0E17;
+      padding: 12px 28px;
+      border-radius: 60px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      filter: brightness(1.05);
+      box-shadow: 0 12px 22px rgba(245,176,66,0.35);
+    }
+    .btn-telegram {
+      background: #1E96E8;
+      color: white;
+      box-shadow: 0 5px 12px rgba(30,150,232,0.3);
+    }
+    .hero-right {
+      flex: 0.9;
+      background: rgba(18, 22, 35, 0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 2rem;
+      padding: 26px 24px;
+      border: 1px solid rgba(245, 179, 66, 0.4);
+      text-align: center;
+    }
+
+    /* section titles */
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 50px 0 30px;
+    }
+    .section-title span {
+      color: #F5B342;
+      border-bottom: 4px solid #F5B342;
+      padding-bottom: 6px;
+    }
+
+    /* cards grid */
+    .grid-3 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: #121724;
+      border-radius: 28px;
+      padding: 28px 20px;
+      flex: 1;
+      min-width: 240px;
+      transition: 0.2s;
+      border: 1px solid #252e3f;
+      text-align: center;
+    }
+    .card i {
+      font-size: 2.8rem;
+      color: #F5B342;
+      margin-bottom: 18px;
+    }
+    .steps-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+    }
+    .step-card {
+      background: #0E121F;
+      border-radius: 28px;
+      padding: 28px 20px;
+      width: 260px;
+      text-align: center;
+      border-left: 4px solid #F5B342;
+    }
+    .step-num {
+      background: #F5B34220;
+      width: 52px;
+      height: 52px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin: 0 auto 15px;
+      color: #F5B342;
+    }
+
+    /* testimonials */
+    .testi-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      margin: 30px 0;
+    }
+    .testi {
+      background: #0F1422;
+      border-radius: 28px;
+      padding: 26px;
+      flex: 1;
+      min-width: 260px;
+      font-style: normal;
+      border: 1px solid #2A3145;
+    }
+
+    .cta-gold {
+      background: linear-gradient(115deg, #1A1F2F, #0C0F19);
+      border-radius: 2rem;
+      padding: 48px 24px;
+      text-align: center;
+      border: 1px solid #F5B342;
+      margin: 40px 0;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 40px 0 30px;
+      border-top: 1px solid #1E2438;
+      font-size: 0.75rem;
+      color: #9BA1B5;
+    }
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .footer-links a {
+      color: #C9CFE0;
+      text-decoration: none;
+    }
+
+    @media (max-width: 780px) {
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      .section-title {
+        font-size: 1.7rem;
+      }
+      .hero-buttons .btn-primary, .hero-buttons .btn-telegram {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 16px;
+      }
+      .hero-stats {
+        gap: 18px;
+      }
+      .stat-number {
+        font-size: 1.6rem;
+      }
+      .hero-right {
+        padding: 20px;
+      }
+    }
+    .highlight {
+      color: #F5B342;
+      font-weight: 700;
+    }
+    .text-small {
+      font-size: 0.7rem;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- ========== HEADER / NAVBAR WITH LOGO ========== -->
+  <div class="navbar">
+    <div class="logo-container">
+      <!-- 
+        🔥 LOGO REPLACEMENT INSTRUCTIONS:
+        Replace the src URL below with your actual logo image.
+        This container handles any logo size (wide/tall) using max-height + object-fit.
+        Supported formats: PNG, JPG, SVG, WebP.
+      -->
+      <img id="navbarLogo" class="navbar-logo" src="https://i.ibb.co/bgwYNwG7/chief-gaming-header.png" alt="YaarWin Chief Gaming Logo">
+    </div>
+    <div class="nav-actions">
+      <a href="https://yaarwin.club/" target="_blank" class="btn-nav btn-login-nav"><i class="fas fa-sign-in-alt"></i> Login</a>
+      <a href="https://yaarwin.club/#/register?invitationCode=28433108051" target="_blank" class="btn-nav btn-reg-nav"><i class="fas fa-user-plus"></i> Register</a>
+    </div>
+  </div>
+
+  <!-- Hero Section: Chief Gaming Introduction -->
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-badge"><i class="fas fa-crown"></i> CHIEF GAMING · 3 YEARS LEGACY</div>
+      <h1>Turn every bet into <span class="highlight">consistent profit</span> with me.</h1>
+      <p>2000+ active members already earning on YaarWin using my predictions. Now I'm scaling to bring MORE profit to thousands.</p>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-number">2000+</span><span style="font-size: 0.8rem;">Profitable members</span></div>
+        <div class="stat"><span class="stat-number">3+ yrs</span><span style="font-size: 0.8rem;">Expert track</span></div>
+        <div class="stat"><span class="stat-number">94%</span><span style="font-size: 0.8rem;">Win accuracy*</span></div>
+      </div>
+      <div class="hero-buttons">
+        <a href="https://t.me/+1M8fmk1sz5phNDg1" target="_blank" class="btn-primary btn-telegram"><i class="fab fa-telegram-plane"></i> Join Telegram Free</a>
+        <a href="https://yaarwin.club/#/register?invitationCode=28433108051" target="_blank" class="btn-primary"><i class="fas fa-chart-line"></i> Start Earning Now</a>
+      </div>
+      <p class="text-small" style="margin-top: 12px;"><i class="fas fa-link"></i> Invitation code: <strong>28433108051</strong> (auto-applied)</p>
+    </div>
+    <div class="hero-right">
+      <i class="fas fa-user-tie" style="font-size: 2.6rem; color:#F5B342;"></i>
+      <h2 style="margin: 10px 0;">Chief Gaming</h2>
+      <p>“After giving profit to 2000+ individuals, I'm ready to welcome many more. Join my Telegram & YaarWin to access winning signals daily.”</p>
+      <div style="background:#242D3E; border-radius: 60px; padding: 8px; margin: 15px 0;"><i class="fas fa-fire"></i> Next prediction: 89% confidence</div>
+      <a href="https://t.me/+1M8fmk1sz5phNDg1" target="_blank" style="color:#F5B342;">Join Telegram Channel →</a>
+    </div>
+  </div>
+
+  <!-- Why trust section -->
+  <div class="section-title"><span>Why 2000+ gamblers follow me</span></div>
+  <div class="grid-3">
+    <div class="card"><i class="fas fa-chart-line"></i><h3>Accurate Signals</h3><p>Daily match predictions, real-time odds analysis & bankroll management tips.</p></div>
+    <div class="card"><i class="fas fa-users"></i><h3>2000+ Profitable</h3><p>Real community members with verified withdrawals and consistent earnings.</p></div>
+    <div class="card"><i class="fas fa-medal"></i><h3>3 Year Track</h3><p>Proven strategy that survived ups & downs, generating monthly profit streaks.</p></div>
+  </div>
+
+  <!-- 3 steps -->
+  <div class="section-title"><span>How to earn profit with Chief</span></div>
+  <div class="steps-container">
+    <div class="step-card"><div class="step-num">1</div><i class="fab fa-telegram" style="font-size: 2rem; color:#F5B342;"></i><h3 style="margin: 12px 0;">Join Telegram</h3><p>Get free winning predictions & live trading signals.</p><a href="https://t.me/+1M8fmk1sz5phNDg1" target="_blank" style="color:#F5B342;">Join now →</a></div>
+    <div class="step-card"><div class="step-num">2</div><i class="fas fa-user-check" style="font-size: 2rem; color:#F5B342;"></i><h3 style="margin: 12px 0;">Register on YaarWin</h3><p>Use my invitation code for full access & bonus eligibility.</p><a href="https://yaarwin.club/#/register?invitationCode=28433108051" target="_blank" style="color:#F5B342;">Register →</a></div>
+    <div class="step-card"><div class="step-num">3</div><i class="fas fa-coins" style="font-size: 2rem; color:#F5B342;"></i><h3 style="margin: 12px 0;">Apply Predictions</h3><p>Place bets using my analysis and watch your balance grow.</p></div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="section-title"><span>Real members, real profit</span></div>
+  <div class="testi-grid">
+    <div class="testi"><i class="fas fa-quote-left"></i> Joined 5 months ago, turned 8k into 21k. Chief's Telegram is pure gold. Every prediction works like magic!<br><strong>- Arjun S.</strong> <span style="color:#F5B342;">+162% profit</span></div>
+    <div class="testi"><i class="fas fa-quote-left"></i> I'm part of the 2000+ profit club. The transparency and win rate on YaarWin is unmatched. Highly recommend!<br><strong>- Neha K.</strong> <span style="color:#F5B342;">3 months green</span></div>
+    <div class="testi"><i class="fas fa-quote-left"></i> Chief Gaming changed my betting style. No more losses, just consistent weekly profits on the platform.<br><strong>- Rahul D.</strong> <span style="color:#F5B342;">+240% ROI</span></div>
+  </div>
+
+  <!-- CTA Banner -->
+  <div class="cta-gold">
+    <i class="fas fa-chart-simple" style="font-size: 2.8rem; color:#F5B342;"></i>
+    <h2 style="font-size: 1.9rem; margin: 15px 0;">I'm bringing MORE profit to <span style="color:#F5B342;">10,000+ new members</span></h2>
+    <p style="max-width: 700px; margin: 0 auto 24px;">Join my private Telegram & YaarWin family today. Free signals, expert picks, and a community that wins together.</p>
+    <div style="display: flex; gap: 18px; justify-content: center; flex-wrap: wrap;">
+      <a href="https://t.me/+1M8fmk1sz5phNDg1" target="_blank" class="btn-primary btn-telegram" style="padding: 12px 32px;"><i class="fab fa-telegram"></i> Telegram Channel</a>
+      <a href="https://yaarwin.club/#/register?invitationCode=28433108051" target="_blank" class="btn-primary" style="background: white; color:#0B0E17;"><i class="fas fa-gem"></i> Get Started (Invite Code)</a>
+    </div>
+    <p class="text-small" style="margin-top: 25px;">Already have account? <a href="https://yaarwin.club/" target="_blank" style="color:#F5B342;">Login →</a></p>
+  </div>
+
+  <!-- Invitation code highlight -->
+  <div style="background: #0C1020; border-radius: 2rem; padding: 24px; margin: 30px 0; text-align: center; border: 1px solid #2E3A55;">
+    <i class="fas fa-ticket-alt"></i> <strong>Exclusive invitation code:</strong> <code style="background: #1A1F30; padding: 8px 14px; border-radius: 60px; font-weight: bold;">28433108051</code> – use at registration for VIP perks.
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-links">
+      <a href="https://t.me/+1M8fmk1sz5phNDg1" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+      <a href="https://yaarwin.club/" target="_blank"><i class="fas fa-sign-in-alt"></i> Login</a>
+      <a href="https://yaarwin.club/#/register?invitationCode=28433108051" target="_blank"><i class="fas fa-user-plus"></i> Register with code</a>
+    </div>
+    <p><i class="fas fa-exclamation-triangle"></i> 18+ Only. Gambling involves risk. Past performance does not guarantee future results. Chief Gaming provides predictions for entertainment only. Always play responsibly.</p>
+    <p style="margin-top: 12px;">© 2025 YaarWin x Chief Gaming — 2000+ profitable members & growing. Profit consistency backed by 3+ years experience.</p>
+    <p class="text-small">*win efficiency based on historical internal data, individual results may vary.</p>
+  </div>
+</div>
+
+<script>
+  // This script simply reminds about logo customization.
+  // The logo container uses object-fit: contain + max-height to adapt perfectly to any logo dimensions.
+  const logo = document.getElementById('navbarLogo');
+  if (logo) {
+    logo.addEventListener('error', function() {
+      console.warn("Logo image failed to load. Please replace the placeholder URL with your own logo.");
+    });
+  }
+  console.log("✅ YaarWin landing page ready. Logo is inside navbar, fully responsive, works with any logo size.");
+</script>
+</body>
+</html>
