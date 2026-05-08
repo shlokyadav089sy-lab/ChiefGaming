@@ -1,587 +1,460 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>CHIEF VIP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; min-height: 100%; }
 
-<title>Team Chief Gaming – Official Community</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    /* ─── BODY ─── */
+    body {
+      background: #050507;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* Red top glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 50vh;
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(160,15,15,0.22) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-:root {
-  --g:      #00d26a; /* Main Green */
-  --g2:     #00ff87; /* Bright Neon Green */
-  --g-dark: #004d26; /* Deep Green */
-  --dark:   #000000; /* Pure Black */
-  --text:   #dcdcdc;
-  --muted:  #888888;
-  --white:  #ffffff;
-  --border-green: rgba(0, 255, 135, 0.25);
-}
+    /* ─── PARTICLES ─── */
+    .particle {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      animation: rise linear infinite;
+    }
+    @keyframes rise {
+      0%   { transform: translateY(110vh); opacity: 0; }
+      8%   { opacity: 1; }
+      92%  { opacity: 1; }
+      100% { transform: translateY(-60px); opacity: 0; }
+    }
 
-html { scroll-behavior: smooth; background: #000000; }
+    /* ─── CARD ─── */
+    .card {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 380px;
+      background: #0e0f11;
+      border: 1px solid rgba(180,30,30,0.30);
+      border-radius: 20px;
+      padding: 36px 24px 28px;
+      text-align: center;
+    }
 
-body {
-  background-color: var(--dark);
-  /* Black to deep green gradient background */
-  background-image: radial-gradient(circle at top right, rgba(0, 80, 40, 0.4) 0%, #000000 40%),
-                    radial-gradient(circle at bottom left, rgba(0, 50, 25, 0.3) 0%, #000000 50%);
-  background-attachment: fixed;
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
+    /* Animated red glow ring around card */
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 20px;
+      background: transparent;
+      box-shadow:
+        0 0 30px rgba(200,20,20,0.18),
+        0 0 80px rgba(160,10,10,0.12);
+      animation: pulse 3.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: -1;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 30px rgba(200,20,20,0.18), 0 0 80px rgba(160,10,10,0.12); }
+      50%      { box-shadow: 0 0 50px rgba(200,20,20,0.32), 0 0 120px rgba(160,10,10,0.22); }
+    }
 
-/* ── TEXT GRADIENTS ── */
-.text-gradient {
-  background: linear-gradient(90deg, var(--g2), var(--g), #6effb9);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-}
+    /* Red corner brackets */
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 20px;
+      background:
+        linear-gradient(90deg, rgba(210,35,35,0.6) 0%, transparent 35%)   top    left  / 70px 1px no-repeat,
+        linear-gradient(180deg,rgba(210,35,35,0.6) 0%, transparent 35%)   top    left  / 1px 70px no-repeat,
+        linear-gradient(270deg,rgba(210,35,35,0.6) 0%, transparent 35%)   top    right / 70px 1px no-repeat,
+        linear-gradient(180deg,rgba(210,35,35,0.6) 0%, transparent 35%)   top    right / 1px 70px no-repeat,
+        linear-gradient(90deg,  transparent 65%, rgba(210,35,35,0.6) 100%) bottom left  / 70px 1px no-repeat,
+        linear-gradient(0deg,   rgba(210,35,35,0.6) 0%, transparent 35%)  bottom left  / 1px 70px no-repeat,
+        linear-gradient(270deg, transparent 65%, rgba(210,35,35,0.6) 100%) bottom right / 70px 1px no-repeat,
+        linear-gradient(0deg,   rgba(210,35,35,0.6) 0%, transparent 35%)  bottom right / 1px 70px no-repeat;
+      pointer-events: none;
+    }
 
-/* ── HEADER ── */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
-  height: 60px;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-bottom: 1px solid var(--border-green);
-}
+    /* ─── 1. AVATAR ─── */
+    .avatar-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+    /* Outer faint ring */
+    .avatar-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -16px;
+      border-radius: 50%;
+      border: 1px solid rgba(210,35,35,0.16);
+      animation: spin 8s linear infinite reverse;
+    }
 
-/* SVG Chief Gaming Logo - Perfectly Circular */
-.logo-icon {
-  width: 38px;
-  height: 38px;
-  flex-shrink: 0;
-  background: #000000;
-  border: 1px solid var(--g);
-  border-radius: 50%; /* Makes it circular */
-  padding: 4px;
-  box-shadow: 0 0 15px rgba(0, 255, 135, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
+    /* Inner spinning ring */
+    .avatar-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -7px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      border-top-color: rgba(220,40,40,0.85);
+      border-right-color: rgba(220,40,40,0.30);
+      animation: spin 2.8s linear infinite;
+    }
 
-.logo-text {
-  font-family: 'Cinzel', serif;
-  font-weight: 700;
-  font-size: 0.95rem;
-  letter-spacing: 0.1em;
-  color: var(--white);
-  text-transform: uppercase;
-}
-.logo-text em {
-  font-style: normal;
-  background: linear-gradient(90deg, var(--g2), #6effb9);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
 
-.tg-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: 6px;
-  background: #229ED9;
-  color: #fff;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 700;
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: all 0.2s;
-  border: none;
-}
-.tg-btn:hover {
-  background: #1a8bbf;
-  box-shadow: 0 4px 20px rgba(34,158,217,0.35);
-  transform: translateY(-1px);
-}
-.tg-btn svg { width: 14px; height: 14px; fill: #fff; }
+    .avatar-img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      border: 2px solid rgba(210,35,35,0.55);
+      box-shadow:
+        0 0 0 4px rgba(210,35,35,0.10),
+        0 0 24px rgba(200,25,25,0.45),
+        0 0 50px rgba(180,15,15,0.25);
+      filter: saturate(1.1) contrast(1.06);
+    }
 
-/* ── HERO ── */
-.hero {
-  position: relative;
-  z-index: 1;
-  padding: 24px 16px 20px;
-  text-align: center;
-}
+    .live-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: #bf1515;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      box-shadow: 0 0 8px rgba(190,20,20,0.9);
+      animation: blink 1.8s ease-in-out infinite;
+      z-index: 5;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.5; }
+    }
 
-/* Decorative line */
-.hero::before {
-  content: '';
-  display: block;
-  width: 1px;
-  height: 20px;
-  background: linear-gradient(to bottom, transparent, var(--g));
-  margin: 0 auto 16px;
-}
+    /* ─── 2. TITLE ─── */
+    .title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: 0.13em;
+      color: #ffffff;
+      display: block;
+      position: relative;
+      padding: 14px 0 10px;
+      text-shadow:
+        0 0 8px  rgba(255,50,50,1),
+        0 0 20px rgba(220,25,25,0.80),
+        0 0 45px rgba(190,15,15,0.55),
+        0 0 90px rgba(150,8,8,0.30);
+    }
 
-.hero-eyebrow {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--g2);
-  margin-bottom: 10px;
-  text-shadow: 0 0 10px rgba(0, 255, 135, 0.4);
-}
+    /* Laser lines */
+    .title::before,
+    .title::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 1px;
+      width: 75%;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255,50,50,0.85) 25%,
+        rgba(255,120,120,1) 50%,
+        rgba(255,50,50,0.85) 75%,
+        transparent 100%
+      );
+      box-shadow: 0 0 8px rgba(255,50,50,0.8), 0 0 16px rgba(220,20,20,0.5);
+      animation: laser 2.8s ease-in-out infinite;
+    }
+    .title::before { top: 0; }
+    .title::after  { bottom: 0; animation-delay: 0.6s; }
 
-.hero-headline {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(1.4rem, 6vw, 2.5rem);
-  font-weight: 900;
-  line-height: 1.1;
-  color: var(--white);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: nowrap;
-}
+    @keyframes laser {
+      0%,100% { width: 55%; opacity: 0.6; }
+      50%      { width: 85%; opacity: 1; }
+    }
 
-.banner-wrap {
-  margin: 20px auto;
-  position: relative;
-  width: 100%;
-  max-width: 340px;
-}
+    /* ─── 3. SUBTITLE ─── */
+    .subtitle {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.26em;
+      color: rgba(195,195,195,0.40);
+      text-transform: uppercase;
+      margin-top: 14px;
+      margin-bottom: 26px;
+      display: block;
+    }
 
-.banner-wrap::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, var(--g), #002211, var(--g));
-  z-index: 0;
-  opacity: 1;
-}
+    /* ─── 4. PHASE BOXES ─── */
+    .phases {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
 
-.banner-img {
-  width: 100%;
-  border-radius: 14px;
-  display: block;
-  position: relative;
-  z-index: 1;
-  object-fit: cover;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-}
+    .phase {
+      flex: 1;
+      min-width: 0;
+      border-radius: 10px;
+      padding: 10px 6px 9px;
+      background: rgba(0,0,0,0.35);
+    }
 
-.hero-desc {
-  max-width: 320px;
-  margin: 0 auto;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: var(--muted);
-  font-weight: 400;
-}
-.hero-desc strong { color: var(--white); font-weight: 500; }
+    .phase-label {
+      display: block;
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(170,170,170,0.45);
+      margin-bottom: 5px;
+    }
 
-/* ── CTA BUTTONS ── */
-.cta-row {
-  display: flex;
-  gap: 10px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
+    .phase-value {
+      display: block;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 14px 24px;
-  width: 100%;
-  max-width: 280px;
-  border-radius: 8px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: all 0.22s;
-  border: none;
-  cursor: pointer;
-}
-.btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .phase.bullish {
+      border: 1px solid rgba(0,210,110,0.35);
+    }
+    .phase.bullish .phase-value {
+      color: #00e07a;
+      text-shadow: 0 0 10px rgba(0,210,100,0.70);
+    }
 
-.btn-primary {
-  background: linear-gradient(135deg, var(--g2), #006633);
-  color: #000; /* Black text for high contrast on neon green */
-  box-shadow: 0 4px 20px rgba(0, 210, 106, 0.3);
-  border: 1px solid rgba(0, 255, 135, 0.4);
-}
-.btn-primary svg { fill: #000; }
-.btn-primary:hover {
-  background: linear-gradient(135deg, #33ff99, #008040);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(0, 210, 106, 0.5);
-}
+    .phase.stable {
+      border: 1px solid rgba(130,75,225,0.45);
+    }
+    .phase.stable .phase-value {
+      color: #aa65ff;
+      text-shadow: 0 0 10px rgba(140,75,240,0.70);
+    }
 
-/* ── STATS ── */
-.stats {
-  display: flex;
-  justify-content: center;
-  max-width: 400px;
-  margin: 24px auto 0;
-  border: 1px solid var(--border-green);
-  border-radius: 10px;
-  overflow: hidden;
-  background: #000000;
-  position: relative;
-  z-index: 1;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-}
-.stats::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--g), transparent);
-}
-.stat {
-  flex: 1;
-  padding: 12px 8px;
-  text-align: center;
-  border-right: 1px solid rgba(0, 255, 135, 0.15);
-}
-.stat:last-child { border-right: none; }
-.stat-num {
-  font-family: 'Cinzel', serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  line-height: 1;
-}
-.stat-label {
-  font-size: 0.55rem;
-  color: var(--muted);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-top: 4px;
-  font-weight: 700;
-}
+    .phase.bearish {
+      border: 1px solid rgba(215,38,38,0.45);
+    }
+    .phase.bearish .phase-value {
+      color: #ff4040;
+      text-shadow: 0 0 10px rgba(255,50,50,0.70);
+    }
 
-/* ── DIVIDER ── */
-.divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0, 210, 106, 0.4), transparent);
-  margin: 24px 20px;
-  position: relative;
-  z-index: 1;
-}
+    /* ─── 5. BUTTON ─── */
+    .cta-btn {
+      display: block;
+      width: 100%;
+      padding: 15px 10px;
+      background: linear-gradient(90deg, #c27608 0%, #eda01e 28%, #fbbf24 52%, #eda01e 74%, #c27608 100%);
+      border: none;
+      border-radius: 10px;
+      color: #160b00;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 16px;
+      transition: transform 0.14s ease, box-shadow 0.14s ease;
+      box-shadow:
+        0 0 20px rgba(235,155,15,0.42),
+        0 0 44px rgba(200,115,8,0.20),
+        inset 0 1px 0 rgba(255,255,255,0.25);
+      -webkit-tap-highlight-color: transparent;
+    }
 
-/* ── SECTIONS ── */
-.section {
-  padding: 24px 16px;
-  max-width: 780px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-.sec-label {
-  font-size: 0.55rem;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--g2);
-  margin-bottom: 6px;
-}
-.sec-title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(1.2rem, 5vw, 1.6rem);
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--white);
-  margin-bottom: 20px;
-  line-height: 1.1;
-}
+    .cta-btn::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -110%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.30), transparent);
+      animation: sweep 3.2s ease-in-out infinite;
+    }
+    @keyframes sweep {
+      0%        { left: -110%; }
+      40%, 100% { left: 150%; }
+    }
 
-/* ── FEATURES ── */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-.feature-card {
-  background: #000000;
-  border: 1px solid var(--border-green);
-  border-radius: 8px;
-  padding: 16px 10px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  box-shadow: inset 0 0 20px rgba(0, 40, 20, 0.3);
-}
-.feature-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--g-dark), transparent);
-}
-.f-icon  { font-size: 1.4rem; margin-bottom: 6px; }
-.f-name  { font-weight: 700; font-size: 0.75rem; color: var(--white); margin-bottom: 2px; }
-.f-type  { font-size: 0.55rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .cta-btn:hover, .cta-btn:focus {
+      transform: translateY(-2px);
+      box-shadow:
+        0 0 30px rgba(235,155,15,0.65),
+        0 0 65px rgba(200,115,8,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.25);
+      outline: none;
+    }
+    .cta-btn:active { transform: translateY(0); }
 
-/* ── BENEFITS ── */
-.bonus-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
-.bonus-card {
-  background: #000000;
-  border: 1px solid var(--border-green);
-  border-radius: 8px;
-  padding: 18px;
-  position: relative;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-}
-.bonus-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--g), transparent);
-  opacity: 0.7;
-}
-.b-icon  { font-size: 1.3rem; margin-bottom: 8px; }
-.b-title { font-weight: 700; font-size: 0.85rem; color: var(--white); margin-bottom: 4px; font-family: 'Cinzel', serif; }
-.b-desc  { font-size: 0.75rem; color: var(--muted); line-height: 1.5; }
+    /* ─── 6. FOOTER ─── */
+    .footer-text {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      color: rgba(145,145,145,0.38);
+      text-transform: uppercase;
+    }
+    .footer-text .count {
+      color: #eda01e;
+      font-weight: 700;
+      text-shadow: 0 0 6px rgba(235,155,15,0.55);
+    }
 
-/* ── FOOTER CTA ── */
-.footer-cta {
-  text-align: center;
-  padding: 32px 16px;
-  border-top: 1px solid var(--border-green);
-  background: linear-gradient(to top, rgba(0, 30, 15, 0.8), #000000);
-  position: relative;
-  z-index: 1;
-}
-.footer-cta h2 {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(1.3rem, 5vw, 1.8rem);
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--white);
-  margin-bottom: 6px;
-}
-.footer-cta p { color: var(--muted); font-size: 0.8rem; margin-bottom: 16px; }
+    /* ─────────────────────────
+       RESPONSIVE BREAKPOINTS
+    ───────────────────────── */
 
-footer {
-  text-align: center;
-  padding: 16px;
-  font-size: 0.65rem;
-  color: #555;
-  border-top: 1px solid rgba(0, 255, 135, 0.15);
-  background: #000000;
-  letter-spacing: 0.05em;
-  position: relative;
-  z-index: 1;
-}
-footer span { color: var(--g2); }
+    /* Very small phones  ≤ 360px */
+    @media (max-width: 360px) {
+      .card           { padding: 28px 16px 24px; border-radius: 16px; }
+      .avatar-img     { width: 110px; height: 110px; }
+      .avatar-wrap::before { inset: -12px; }
+      .avatar-wrap::after  { inset: -5px; }
+      .title          { font-size: 22px; letter-spacing: 0.10em; }
+      .subtitle       { font-size: 9px; letter-spacing: 0.18em; }
+      .phase-value    { font-size: 12px; }
+      .phase-label    { font-size: 7px; }
+      .cta-btn        { font-size: 10px; padding: 13px 8px; letter-spacing: 0.10em; }
+      .phases         { gap: 5px; }
+    }
 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(15px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.hero-eyebrow  { animation: fadeUp 0.4s ease both; }
-.hero-headline { animation: fadeUp 0.4s 0.1s ease both; }
-.banner-wrap   { animation: fadeUp 0.5s 0.2s ease both; }
-.hero-desc     { animation: fadeUp 0.4s 0.3s ease both; }
-.cta-row       { animation: fadeUp 0.4s 0.35s ease both; }
-.stats         { animation: fadeUp 0.4s 0.45s ease both; }
+    /* Standard phones  361–480px  (default styles above cover this) */
 
-/* ── RESPONSIVE TWEAKS ── */
-@media (min-width: 600px) {
-  .features-grid { grid-template-columns: repeat(3, 1fr); }
-  .bonus-grid { grid-template-columns: repeat(2, 1fr); }
-  .cta-row { flex-direction: row; }
-  .btn { width: auto; }
-}
-</style>
+    /* Large phones / small tablets  481–767px */
+    @media (min-width: 481px) and (max-width: 767px) {
+      .card       { max-width: 420px; padding: 38px 28px 30px; }
+      .avatar-img { width: 150px; height: 150px; }
+      .avatar-wrap::before { inset: -18px; }
+      .avatar-wrap::after  { inset: -8px; }
+      .title      { font-size: 32px; }
+    }
 
-  <!-- Meta Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '1903064510396760');
-  fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1903064510396760&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- End Meta Pixel Code -->
-  
+    /* Tablets  768px+ */
+    @media (min-width: 768px) {
+      .card       { max-width: 440px; padding: 44px 36px 34px; }
+      .avatar-img { width: 155px; height: 155px; }
+      .avatar-wrap::before { inset: -18px; }
+      .avatar-wrap::after  { inset: -8px; }
+      .title      { font-size: 32px; }
+      .subtitle   { font-size: 12px; }
+      .phase-value{ font-size: 15px; }
+      .phase-label{ font-size: 9px; }
+      .cta-btn    { font-size: 13px; padding: 17px; }
+      .footer-text{ font-size: 11px; }
+    }
+
+    /* Desktop  1024px+ */
+    @media (min-width: 1024px) {
+      .card       { max-width: 460px; }
+      .avatar-img { width: 160px; height: 160px; }
+      .title      { font-size: 34px; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="logo">
-    <svg class="logo-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-      <!-- Green Crescent moon -->
-      <path d="M20 4 A16 16 0 1 0 20 36 A10 10 0 1 1 20 4Z" fill="#00d26a" opacity="0.9"/>
-      <!-- Inner detail line -->
-      <path d="M22 8 A12 12 0 0 1 22 32" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-      <!-- Small stars -->
-      <circle cx="30" cy="10" r="1.5" fill="#00ff87" opacity="0.8"/>
-      <circle cx="33" cy="15" r="1" fill="#00d26a" opacity="0.5"/>
-    </svg>
-    <div class="logo-text">Team <em>Chief Gaming</em></div>
-  </div>
-  <a href="https://t.me/A8ENT_X" class="tg-btn" target="_blank" rel="noopener noreferrer">
-    <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-    Contact Us
-  </a>
-</header>
+  <!-- Particles -->
+  <div class="particle" style="left:10%;width:2px;height:2px;background:rgba(210,35,35,0.55);animation-duration:8.5s;animation-delay:0s;"></div>
+  <div class="particle" style="left:25%;width:1px;height:1px;background:rgba(255,70,70,0.40);animation-duration:11s;animation-delay:1.8s;"></div>
+  <div class="particle" style="left:50%;width:2px;height:2px;background:rgba(210,35,35,0.50);animation-duration:9.5s;animation-delay:3.5s;"></div>
+  <div class="particle" style="left:70%;width:3px;height:3px;background:rgba(190,20,20,0.30);animation-duration:13s;animation-delay:0.8s;"></div>
+  <div class="particle" style="left:88%;width:1px;height:1px;background:rgba(220,40,40,0.45);animation-duration:7.5s;animation-delay:2.5s;"></div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-eyebrow">Official Community · India</div>
+  <!-- Card -->
+  <div class="card">
 
-  <h1 class="hero-headline">
-    Team <span class="name text-gradient">Chief Gaming</span>
-  </h1>
+    <!-- 1. Profile Image -->
+    <div class="avatar-wrap">
+      <img
+        class="avatar-img"
+        src="https://i.ibb.co/nqBVFjCy/Chat-GPT-Image-May-9-2026-01-25-21-AM.png"
+        alt="Chief VIP"
+      />
+      <div class="live-badge">LIVE</div>
+    </div>
 
-  <div class="banner-wrap">
-    <img
-      src="https://i.ibb.co/S4js4Dsg/Chat-GPT-Image-May-7-2026-07-57-58-PM.png"
-      alt="Team Chief Gaming"
-      class="banner-img"
-    />
-  </div>
+    <!-- 2. Title -->
+    <span class="title">CHIEF VIP</span>
 
-  <p class="hero-desc">
-    India's fastest-growing online community.<br>
-    <strong>Daily updates and live discussions</strong> completely free.
-  </p>
+    <!-- 3. Subtitle -->
+    <span class="subtitle">High-Speed Analysis Gateway</span>
 
-  <div class="cta-row">
-    <a href="https://t.me/+1M8fmk1sz5phNDg1" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-      <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-      Join Telegram
+    <!-- 4. Phase Boxes -->
+    <div class="phases">
+      <div class="phase bullish">
+        <span class="phase-label">Phase 01</span>
+        <span class="phase-value">BULLISH</span>
+      </div>
+      <div class="phase stable">
+        <span class="phase-label">Phase 02</span>
+        <span class="phase-value">STABLE</span>
+      </div>
+      <div class="phase bearish">
+        <span class="phase-label">Phase 03</span>
+        <span class="phase-value">BEARISH</span>
+      </div>
+    </div>
+
+    <!-- 5. CTA Button -->
+    <a href="https://t.me/+1M8fmk1sz5phNDg1" target="_blank" rel="noopener noreferrer" class="cta-btn">
+      GET FREE SIGNAL
     </a>
+
+    <!-- 6. Footer -->
+    <div class="footer-text">
+      Access granted for <span class="count">2,856</span> active terminals
+    </div>
+
   </div>
-
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-num text-gradient">2K+</div>
-      <div class="stat-label">Members</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num text-gradient">24/7</div>
-      <div class="stat-label">Community</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num text-gradient">100%</div>
-      <div class="stat-label">Free</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num text-gradient">5★</div>
-      <div class="stat-label">Rated</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- WHAT YOU GET -->
-<section class="section">
-  <div class="sec-label">What's Inside</div>
-  <div class="sec-title">Everything in <em class="text-gradient">One Community</em></div>
-  <div class="features-grid">
-    <div class="feature-card"><div class="f-icon">💬</div><div class="f-name">Live Chat</div><div class="f-type">Instant</div></div>
-    <div class="feature-card"><div class="f-icon">👥</div><div class="f-name">Community</div><div class="f-type">Active</div></div>
-    <div class="feature-card"><div class="f-icon">🛡️</div><div class="f-name">Verified</div><div class="f-type">Official</div></div>
-    <div class="feature-card"><div class="f-icon">⚡</div><div class="f-name">Fast Access</div><div class="f-type">24/7</div></div>
-    <div class="feature-card"><div class="f-icon">🔔</div><div class="f-name">Updates</div><div class="f-type">Real-time</div></div>
-    <div class="feature-card"><div class="f-icon">🚀</div><div class="f-name">Free Join</div><div class="f-type">No Cost</div></div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- WHY JOIN -->
-<section class="section">
-  <div class="sec-label">Exclusive Access</div>
-  <div class="sec-title">Why Join <em class="text-gradient">Chief Gaming?</em></div>
-  <div class="bonus-grid">
-    <div class="bonus-card">
-      <div class="b-icon">📡</div>
-      <div class="b-title">Daily Updates</div>
-      <div class="b-desc">Timely community updates and important announcements sent directly to your Telegram.</div>
-    </div>
-    <div class="bonus-card">
-      <div class="b-icon">🤝</div>
-      <div class="b-title">Member Network</div>
-      <div class="b-desc">Gain access to exclusive community discussions and connect with other members globally.</div>
-    </div>
-    <div class="bonus-card">
-      <div class="b-icon">💡</div>
-      <div class="b-title">Community Support</div>
-      <div class="b-desc">Get regular help, ask questions, and chat with fellow members 24/7.</div>
-    </div>
-    <div class="bonus-card">
-      <div class="b-icon">🛡️</div>
-      <div class="b-title">Trusted & Verified</div>
-      <div class="b-desc">Official verified team. Always use official links from this page for safe access.</div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER CTA -->
-<div class="footer-cta">
-  <h2>Join the <em class="text-gradient">Community</em> Today</h2>
-  <p>2,000+ members already inside free to join in one tap.</p>
-  <div class="cta-row">
-    <a href="https://t.me/+1M8fmk1sz5phNDg1" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-      <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-      Join Free on Telegram
-    </a>
-  </div>
-</div>
-
-<footer>
-  © 2026 <span>Team Chief Gaming</span> · Official Community · Play Responsibly
-</footer>
 
 </body>
 </html>
