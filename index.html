@@ -462,7 +462,7 @@
     </div>
 
     <!-- 5. CTA Button -->
-    <a href="https://t.me/+1M8fmk1sz5phNDg1" target="_blank" rel="noopener noreferrer" class="cta-btn" onclick="handleSignalClick(event)">
+    <a href="https://t.me/+1M8fmk1sz5phNDg1" target="_blank" rel="noopener noreferrer" class="cta-btn" id="signalBtn">
       GET FREE SIGNAL
     </a>
 
@@ -474,14 +474,13 @@
   </div>
 
   <script>
-    function handleSignalClick(e) {
-      e.preventDefault();
-      var url = 'https://t.me/+1M8fmk1sz5phNDg1';
+    document.getElementById('signalBtn').addEventListener('click', function() {
       if (typeof fbq !== 'undefined') {
         fbq('track', 'Lead', { content_name: 'GET FREE SIGNAL' });
       }
-      setTimeout(function() { window.open(url, '_blank'); }, 300);
-    }
+      // No e.preventDefault() — browser follows the real href normally,
+      // which is what Meta Events Setup Tool needs to detect the click.
+    });
   </script>
 </body>
 </html>
