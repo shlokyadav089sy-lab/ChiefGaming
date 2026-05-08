@@ -5,6 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>CHIEF VIP</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1903064510396760');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1903064510396760&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
   <style>
     /* ─── RESET ─── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -399,23 +416,6 @@
       .title      { font-size: 34px; }
     }
   </style>
-  <!-- Meta Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '1903064510396760');
-  fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1903064510396760&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -462,7 +462,7 @@
     </div>
 
     <!-- 5. CTA Button -->
-    <a href="https://t.me/+1M8fmk1sz5phNDg1" target="_blank" rel="noopener noreferrer" class="cta-btn">
+    <a href="https://t.me/+1M8fmk1sz5phNDg1" target="_blank" rel="noopener noreferrer" class="cta-btn" onclick="handleSignalClick(event)">
       GET FREE SIGNAL
     </a>
 
@@ -473,5 +473,15 @@
 
   </div>
 
+  <script>
+    function handleSignalClick(e) {
+      e.preventDefault();
+      var url = 'https://t.me/+1M8fmk1sz5phNDg1';
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead', { content_name: 'GET FREE SIGNAL' });
+      }
+      setTimeout(function() { window.open(url, '_blank'); }, 300);
+    }
+  </script>
 </body>
 </html>
